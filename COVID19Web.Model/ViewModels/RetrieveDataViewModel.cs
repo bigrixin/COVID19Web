@@ -1,0 +1,15 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace COVID19Web.Model.ViewModel
+{
+    public class RetrieveDataViewModel
+    {
+        [Required]
+        [StringLength(4, MinimumLength = 4, ErrorMessage = "* Postcode must be 4 character in length.")]
+        public string Postcode { get; set; }
+
+        public List<ConfirmedCaseViewModel> Result { get; set; }
+        public List<string> Suburbs { get; set; }
+    }
+}

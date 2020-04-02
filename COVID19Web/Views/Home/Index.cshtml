@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model COVID19Web.Model.ViewModel.RetrieveDataViewModel
+@*@model IEnumerable<COVID19Web.Model.ViewModel.RetrieveDataViewModel>*@
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h4>Search Confirmed Cases of COVID-19 by Postcode</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Postcode, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @placeholder = "2000" })
+                        @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-12">
+
+                        @{
+                            if (Model.Suburbs != null)
+                            {
+                                @:<p>
+                                    @:<b>Suburbs:</b>
+                                    foreach (var item in Model.Suburbs)
+                                    {
+                                        @Html.DisplayFor(modelItem => item) @: ,
+                                    }
+                                @:</p>
+                            }
+
+                            if (Model.Result != null)
+                            {
+                                @:<p>
+                                    <b style="color:red;font-size:medium">
+                                        @Model.Result.Count()
+                                    </b> @: people were confirmed positive.
+
+                                @:</p>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Result.First()._id)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Result.First().notification_date)
+                                        </th>
+                                        @*  <th>
+                                                @Html.DisplayNameFor(model => model.Result.First().postcode)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Result.First().lhd_2010_code)
+                                            </th>*@
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Result.First().lhd_2010_name)
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.Result.First().lga_code19)
+                                            </th>*@
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Result.First().lga_name19)
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.Result.First().rank)
+                                            </th>*@
+                                    </tr>
+
+                                    @foreach (var item in Model.Result)
+                                    {
+                                        <tr>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item._id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.notification_date)
+                                            </td>
+                                            @*   <td>
+                                                    @Html.DisplayFor(modelItem => item.postcode)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.lhd_2010_code)
+                                                </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.lhd_2010_name)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.lga_code19)
+                                                </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.lga_name19)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.rank)
+                                                </td>*@
+                                        </tr>
+                                    }
+
+                                </table>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
