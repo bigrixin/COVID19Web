@@ -1,7 +1,62 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title </h2>
+<div class="jumbotron">
+    <h3>
+        @Html.ActionLink("Confirmed COVID-19 cases in NSW", "Index", "Home", new { area = "" }, new { @class = "" })
+    </h3>
+    <hr class="my-4">
+    <p>
+        The application is used to check COVID-19 confirmed cases in NSW, Australia by postcode. My friends said it easy to use and fast. Hope you enjoy it.  
+    </p>
 
-<p>This application is used to search confirmed COVID-19 cases based on Postcode via API of data.nsw.gov.au</p>
+
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4>The Web application used the following technologies     <span class="glyphicon glyphicon-eye-open"></span> </h4>
+                </button>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body" style="padding:0 16px 0 16px">
+                    <p>
+                        <h4> C#，ASP .NET, Web API, Autofac, Unit Test, Azure, Read XML and JSON Data from a URL.</h4>
+                    </p>
+                    <ul>
+                        <li>
+                            The COVID-19 data are extracted via WebAPI from https://data.nsw.gov.au/
+                        </li>
+                        <li>
+                            The Postcode to the suburb name function via WebAPI from https://www.beliefmedia.com.au/
+                            <br />
+                            (Due to the Visit Rate limiting applies, sometimes the suburbs name can not be retrieved.)
+                        </li>
+                    </ul>
+                    <p>
+
+                    </p>
+
+                    <p>
+                        <h5> :) another solution maybe using Google API.</h5>
+
+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="jumbotron">
+    <p>
+        If you have any suggestions please let me know.
+
+    </p>
+
+    :) Please look at my profile on <a href="https://www.linkedin.com/in/steven-zhai-36648225/">Linkedin</a>. If your company is hiring, please contact me.
+
+</div>
