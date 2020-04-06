@@ -41,6 +41,7 @@ namespace COVID19Web.Controllers
             webAddress = _searchDataService.CombineRetrieveSuburbURL(model.Postcode);
             List<string> suburbs = _searchDataService.GetSuburbByPostcode(webAddress);
             model.Suburbs = suburbs;
+            model.NSWCount = _searchDataService.GetNSWConfirmedCasesCount();
             return View(model);
         }
 

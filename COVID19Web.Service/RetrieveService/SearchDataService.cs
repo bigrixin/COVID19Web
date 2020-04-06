@@ -51,6 +51,21 @@ namespace COVID19Web.Service
             return data;
         }
 
+        public string GetNSWConfirmedCasesCount()
+        {
+            string url = ConfigurationManager.AppSettings["NSWConfirmedCasesCount"];
+
+            NSWConfirmedCasesViewModel nswVM = new NSWConfirmedCasesViewModel();
+            string data = WebRequestGetJsonString(url);
+
+            JObject jObject = JObject.Parse(data);
+            var records = jObject["result"]["records"];
+            foreach (var item in records)
+            {
+                nswVM = JsonConvert.DeserializeObject<NSWConfirmedCasesViewModel>(item.ToString());
+            }
+            return nswVM.Count;
+        }
 
         private List<string> WebRequestGetXMLString(string url)
         {
@@ -69,33 +84,11 @@ namespace COVID19Web.Service
                     }
                 }
 
-
-                //switch (reader.NodeType)
-                //{
-                //    case XmlNodeType.Element: // The node is an element.
-                //        Debug.Write("<" + reader.Name);
-
-                //        while (reader.MoveToNextAttribute()) // Read the attributes.
-                //        {
-                //            if (reader.Name == "place")
-                //                Suburbs.Add(reader.Value);
-                //            Debug.Write(" " + reader.Name + "='" + reader.Value + "'");
-                //        }
-                //        Debug.Write(">");
-                //        Debug.WriteLine(">");
-                //        break;
-                //    case XmlNodeType.Text: //Display the text in each element.
-                //        Debug.WriteLine(reader.Value);
-                //        break;
-                //    case XmlNodeType.EndElement: //Display the end of the element.
-                //        Debug.Write("</" + reader.Name);
-                //        Debug.WriteLine(">");
-                //        break;
-                //}
             }
             return Suburbs;
 
         }
+
 
         private string WebRequestGetJsonString(string url)
         {

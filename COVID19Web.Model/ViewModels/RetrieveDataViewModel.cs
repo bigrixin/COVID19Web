@@ -9,6 +9,7 @@ namespace COVID19Web.Model.ViewModel
         [StringLength(4, MinimumLength = 4, ErrorMessage = "* Postcode must be 4 character in length.")]
         public string Postcode { get; set; }
 
+        public string NSWCount { get; set; }
         public List<ConfirmedCaseViewModel> Result { get; set; }
         public List<string> Suburbs { get; set; }
     }
