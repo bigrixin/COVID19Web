@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace COVID19Web.Model.ViewModel
 {
-    public class ConfirmedCaseViewModel
+    public class ConfirmedCasesDetailsViewModel
     {
         [Display(Name = "Id")]
         public int _id { get; set; }

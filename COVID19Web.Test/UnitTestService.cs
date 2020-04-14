@@ -15,7 +15,7 @@ namespace COVID19Web.Test
             SearchDataService s = new SearchDataService();
             string postcode = "2000";
             string expected = "&q=2000";
-            string result = s.CombineConfirmedCaseURL(postcode);
+            string result = s.CombineConfirmedCasesDetailsURL(postcode);
             Assert.AreEqual(expected, result);
         }
 

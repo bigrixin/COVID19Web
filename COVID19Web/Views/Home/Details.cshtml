@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>Postcode: @Model.Postcode</h3>
+
+@model COVID19Web.Model.ViewModel.RetrieveDataViewModel
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <div class="col-md-12">
+
+                @{
+                    <hr />
+                    if (Model.Suburbs != null)
+                    {
+                        @:<p>
+                            @:<b>Suburbs:</b>
+                            foreach (var item in Model.Suburbs)
+                            {
+                                @Html.DisplayFor(modelItem => item) @: ,
+                            }
+                        @:</p>
+                    }
+
+                    if (Model.DetailsResult != null)
+                    {
+
+                        @:<p>
+                            <b style="color:red;font-size:medium">
+                                @Model.DetailsResult.Count()
+                            </b> @: people were confirmed positive.
+                            @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
+                        @:</p>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DetailsResult.First()._id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DetailsResult.First().notification_date)
+                                </th>
+                                @*  <th>
+                            @Html.DisplayNameFor(model => model.Result.First().postcode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Result.First().lhd_2010_code)
+                        </th>*@
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DetailsResult.First().lhd_2010_name)
+                                </th>
+                                @*<th>
+                            @Html.DisplayNameFor(model => model.Result.First().lga_code19)
+                        </th>*@
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DetailsResult.First().lga_name19)
+                                </th>
+                                @*<th>
+                            @Html.DisplayNameFor(model => model.Result.First().rank)
+                        </th>*@
+                            </tr>
+
+                            @foreach (var item in Model.DetailsResult)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item._id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.notification_date)
+                                    </td>
+                                    @*   <td>
+                                @Html.DisplayFor(modelItem => item.postcode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.lhd_2010_code)
+                            </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.lhd_2010_name)
+                                    </td>
+                                    @*<td>
+                                @Html.DisplayFor(modelItem => item.lga_code19)
+                            </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.lga_name19)
+                                    </td>
+                                    @*<td>
+                                @Html.DisplayFor(modelItem => item.rank)
+                            </td>*@
+                                </tr>
+                            }
+
+                        </table>
+                        <hr />
+                    }
+
+                    if (Model.NSWCount != null)
+                    {
+                        @:<p>
+                            @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
+                                @Model.NSWCount @:</b>
+                        @:</p>
+                        <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
+                    }
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

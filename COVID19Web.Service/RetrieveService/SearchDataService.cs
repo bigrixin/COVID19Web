@@ -1,22 +1,27 @@
 ﻿using COVID19Web.Model.ViewModel;
+using COVID19Web.Model.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Web.Script.Serialization;
 using System.Xml;
 
 namespace COVID19Web.Service
 {
     public class SearchDataService : ISearchDataService
     {
+        public string CombineConfirmedCasesDailyCountURL(string postcode)
+        {
+            string part1 = ConfigurationManager.AppSettings["ConfirmedCasesByPostcode1"];
+            string part2 = ConfigurationManager.AppSettings["ConfirmedCasesByPostcode2"];
+            return part1 +" '"+ postcode+"' " + part2;
+        }
 
-        public string CombineConfirmedCaseURL(string postcode)
+        public string CombineConfirmedCasesDetailsURL(string postcode)
         {
             string url = ConfigurationManager.AppSettings["ConfirmedCaseAPIEndpoint"] + "&q=";
             return url + postcode;
@@ -27,9 +32,10 @@ namespace COVID19Web.Service
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
 
-        public List<ConfirmedCaseViewModel> GetSearchResultList(string url)
+        public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
         {
-            List<ConfirmedCaseViewModel> listVM = new List<ConfirmedCaseViewModel>();
+            List<ConfirmedCasesDailyCountViewModel> listVM = new List<ConfirmedCasesDailyCountViewModel>();
+
             string data = WebRequestGetJsonString(url);
 
             JObject jObject = JObject.Parse(data);
@@ -37,8 +43,25 @@ namespace COVID19Web.Service
 
             foreach (var item in records)
             {
-                ConfirmedCaseViewModel cVM = new ConfirmedCaseViewModel();
-                cVM = JsonConvert.DeserializeObject<ConfirmedCaseViewModel>(item.ToString());
+                ConfirmedCasesDailyCountViewModel cVM = new ConfirmedCasesDailyCountViewModel();
+                cVM = JsonConvert.DeserializeObject<ConfirmedCasesDailyCountViewModel>(item.ToString());
+                listVM.Add(cVM);
+            }
+            return listVM;
+        }
+
+        public List<ConfirmedCasesDetailsViewModel> GetCasesDetialsList(string url)
+        {
+            List<ConfirmedCasesDetailsViewModel> listVM = new List<ConfirmedCasesDetailsViewModel>();
+            string data = WebRequestGetJsonString(url);
+
+            JObject jObject = JObject.Parse(data);
+            var records = jObject["result"]["records"];
+
+            foreach (var item in records)
+            {
+                ConfirmedCasesDetailsViewModel cVM = new ConfirmedCasesDetailsViewModel();
+                cVM = JsonConvert.DeserializeObject<ConfirmedCasesDetailsViewModel>(item.ToString());
                 listVM.Add(cVM);
             }
             return listVM;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using COVID19Web.Model.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace COVID19Web.Model.ViewModel
@@ -10,7 +11,8 @@ namespace COVID19Web.Model.ViewModel
         public string Postcode { get; set; }
 
         public string NSWCount { get; set; }
-        public List<ConfirmedCaseViewModel> Result { get; set; }
+        public List<ConfirmedCasesDetailsViewModel> DetailsResult { get; set; }
+        public List<ConfirmedCasesDailyCountViewModel> DailyCountResult { get; set; }
         public List<string> Suburbs { get; set; }
     }
 }

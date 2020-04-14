@@ -3,133 +3,122 @@
 }
 
 @model COVID19Web.Model.ViewModel.RetrieveDataViewModel
-@*@model IEnumerable<COVID19Web.Model.ViewModel.RetrieveDataViewModel>*@
 <div class="row">
     <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <br />
-                <h4>Search Confirmed Cases of COVID-19 by Postcode</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Postcode, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @placeholder = "2000" })
-                        @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
-                    </div>
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <br />
+            <h4>Search Confirmed Cases of COVID-19 by Postcode</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Postcode, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @placeholder = "2000" })
+                    @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        <input type="submit" value="Submit" class="btn btn-default" />
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="submit" value="Submit" class="btn btn-default" />
                 </div>
+            </div>
 
-               
-                <div class="form-group">
-                    <div class="col-md-12">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-12">
 
-                        @{
-                            <hr />
-                            if (Model.Suburbs != null)
-                            {
-                                @:<p>
-                                    @:<b>Suburbs:</b>
-                                    foreach (var item in Model.Suburbs)
-                                    {
-                                        @Html.DisplayFor(modelItem => item) @: ,
-                                    }
-                                @:</p>
-                            }
-
-                            if (Model.Result != null)
-                            {
-
-                                @:<p>
-                                    <b style="color:red;font-size:medium">
-                                        @Model.Result.Count()
-                                    </b> @: people were confirmed positive.
-
-                                @:</p>
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Result.First()._id)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Result.First().notification_date)
-                                        </th>
-                                        @*  <th>
-                            @Html.DisplayNameFor(model => model.Result.First().postcode)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Result.First().lhd_2010_code)
-                        </th>*@
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Result.First().lhd_2010_name)
-                                        </th>
-                                        @*<th>
-                            @Html.DisplayNameFor(model => model.Result.First().lga_code19)
-                        </th>*@
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Result.First().lga_name19)
-                                        </th>
-                                        @*<th>
-                            @Html.DisplayNameFor(model => model.Result.First().rank)
-                        </th>*@
-                                    </tr>
-
-                                    @foreach (var item in Model.Result)
-                                    {
-                                        <tr>
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item._id)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.notification_date)
-                                            </td>
-                                            @*   <td>
-                                @Html.DisplayFor(modelItem => item.postcode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.lhd_2010_code)
-                            </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.lhd_2010_name)
-                                            </td>
-                                            @*<td>
-                                @Html.DisplayFor(modelItem => item.lga_code19)
-                            </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.lga_name19)
-                                            </td>
-                                            @*<td>
-                                @Html.DisplayFor(modelItem => item.rank)
-                            </td>*@
-                                        </tr>
-                                    }
-
-                                </table>
-                                <hr />
-                            }
-
-                            if (Model.NSWCount != null)
-                            {
-                                @:<p>
-                                    @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
-                                        @Model.NSWCount @:</b>
-                                @:</p>
-                                <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
-                            }
-
+                    @{
+                        if (Model.Suburbs != null)
+                        {
+                            @:<p>
+                                @:<b>Suburbs:</b>
+                                foreach (var item in Model.Suburbs)
+                                {
+                                    @Html.DisplayFor(modelItem => item) @: ,
+                                }
+                                @:
+                            @:</p>
                         }
 
-                    </div>
+                        if (Model.DetailsResult != null)
+                        {
+
+                            @:<p>
+                                <b style="color:red;font-size:medium">
+                                    @Model.DetailsResult.Count()
+                                </b> @: people were confirmed positive.
+
+                                @:
+                            @:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
+                                    </th>
+
+                                </tr>
+
+                                @foreach (var item in Model.DailyCountResult)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Count)
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </table>
+
+                            @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                        }
+
+                        
+                        <img src="https://www.health.nsw.gov.au/Infectious/diseases/PublishingImages/covid-19-source.png" class="img-responsive" alt="source: health.nsw.gov.au">
+                        @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
+                        <hr />
+                        if (Model.NSWCount != null)
+                        {
+                            @:<p>
+                                @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
+                                    @Model.NSWCount @:
+                               @:</b>
+
+                            @:</p>
+                            <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
+                        }
+
+                    }
+
                 </div>
-            }
-        </section>
+            </div>
+        }
+
     </div>
 </div>
