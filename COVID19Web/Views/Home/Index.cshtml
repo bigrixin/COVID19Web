@@ -10,7 +10,7 @@
         {
             @Html.AntiForgeryToken()
             <br />
-            <h4>Search Confirmed Cases of COVID-19 by Postcode</h4>
+            <h4>Search NSW COVID-19 Case by Postcode</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -31,6 +31,42 @@
                 <div class="col-md-12">
 
                     @{
+
+                        if (Model.NSWCaseStatisticsVM != null)
+                        {
+                            <p>
+                                <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
+                            </p>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>
+                                        Case
+                                    </th>
+                                    <th align="center">
+                                        Count
+                                    </th>
+
+                                </tr>
+
+                                @foreach (var item in Model.NSWCaseStatisticsVM)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td style="color:blue;" align="right">
+                                            @Html.DisplayFor(modelItem => item.Count)
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </table>
+
+                            <span style="font-size:10px;"> 	&nbsp;	&nbsp;Note: <a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest-updates.aspx">1,2</a></span>
+                            <hr />
+                        }
+
                         if (Model.Suburbs != null)
                         {
                             @:<p>
@@ -53,20 +89,6 @@
 
                                 @:
                             @:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                             <table class="table table-striped">
@@ -98,22 +120,30 @@
 
                             @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
                         }
+                        else
+                        {
+                            <p></p>
+                            <img src="https://www.health.gov.au/sites/default/files/images/publications/2020/04/covid-19-cases-in-australia-by-gender-and-age_16.png" class="img-responsive" alt="source: health.nsw.gov.au">
 
-                        
-                        <img src="https://www.health.nsw.gov.au/Infectious/diseases/PublishingImages/covid-19-source.png" class="img-responsive" alt="source: health.nsw.gov.au">
-                        @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
-                        <hr />
+                            <p></p><p></p>
+                            <img src="https://www.health.nsw.gov.au/Infectious/diseases/PublishingImages/covid-19-source.png" class="img-responsive" alt="source: health.nsw.gov.au">
+                            @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
+                            <hr />
+                        }
                         if (Model.NSWCount != null)
                         {
                             @:<p>
                                 @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
                                     @Model.NSWCount @:
-                               @:</b>
-
+                                @:</b>
                             @:</p>
                             <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
                         }
-
+                        else
+                        {
+                            <p><b># Case in Australia #</b></p>
+                            <img src="https://www.health.gov.au/sites/default/files/images/publications/2020/04/new-and-cumulative-covid-19-cases-in-australia-by-notification-date_14.png" class="img-responsive" alt="source: health.nsw.gov.au">
+                        }
                     }
 
                 </div>

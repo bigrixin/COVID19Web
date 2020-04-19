@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\ConfirmedCasesDailyCountViewModel.cs" />
     <Compile Include="ViewModels\ConfirmedCasesDetailsViewModel.cs" />
+    <Compile Include="ViewModels\NSWCaseStatisticsViewModel.cs" />
     <Compile Include="ViewModels\NSWConfirmedCasesViewModel.cs" />
     <Compile Include="ViewModels\RetrieveDataViewModel.cs" />
   </ItemGroup>

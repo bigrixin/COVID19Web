@@ -10,6 +10,7 @@ namespace COVID19Web.Service
         string CombineConfirmedCasesDetailsURL(string postcode);
         string CombineRetrieveSuburbURL(string postcode);
         string GetNSWConfirmedCasesCount();
+        List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics();
         List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url);
         List<ConfirmedCasesDetailsViewModel> GetCasesDetialsList(string url);
         List<string> GetSuburbByPostcode(string url);

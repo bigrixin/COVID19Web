@@ -1,12 +1,16 @@
 ﻿using COVID19Web.Model.ViewModel;
 using COVID19Web.Model.ViewModels;
+using HtmlAgilityPack;
+using mshtml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Xml;
 
@@ -18,7 +22,7 @@ namespace COVID19Web.Service
         {
             string part1 = ConfigurationManager.AppSettings["ConfirmedCasesByPostcode1"];
             string part2 = ConfigurationManager.AppSettings["ConfirmedCasesByPostcode2"];
-            return part1 +" '"+ postcode+"' " + part2;
+            return part1 + " '" + postcode + "' " + part2;
         }
 
         public string CombineConfirmedCasesDetailsURL(string postcode)
@@ -32,13 +36,40 @@ namespace COVID19Web.Service
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
 
+        public List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics()
+        {
+            string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
+            string htmlString = WebRequestGetHtmlString(url);
+            string caseTitleClassName = "moh-rteTableEvenCol-6";
+            string caseCountClassName = "moh-rteTableOddCol-6";
+            List<NSWCaseStatisticsViewModel> listVM = new List<NSWCaseStatisticsViewModel>();
+
+
+            HtmlDocument resultat = new HtmlDocument();
+            resultat.LoadHtml(htmlString);
+
+            List<HtmlNode> caseTitleList = resultat.DocumentNode.Descendants().Where
+(x => (x.Name == "td" && x.Attributes["class"] != null &&
+x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
+
+            List<HtmlNode> caseCountList = resultat.DocumentNode.Descendants().Where
+(x => (x.Name == "td" && x.Attributes["class"] != null &&
+   x.Attributes["class"].Value.Contains(caseCountClassName))).ToList();
+
+            for (int i = 0; i < caseTitleList.Count - 1; i++)
+            {
+                listVM.Add(new NSWCaseStatisticsViewModel { Title = caseTitleList[i].InnerText, Count = caseCountList[i].InnerText });
+            }
+            return listVM;
+        }
+
         public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
         {
             List<ConfirmedCasesDailyCountViewModel> listVM = new List<ConfirmedCasesDailyCountViewModel>();
 
-            string data = WebRequestGetJsonString(url);
+            string htmlString = WebRequestGetHtmlString(url);
 
-            JObject jObject = JObject.Parse(data);
+            JObject jObject = JObject.Parse(htmlString);
             var records = jObject["result"]["records"];
 
             foreach (var item in records)
@@ -53,9 +84,9 @@ namespace COVID19Web.Service
         public List<ConfirmedCasesDetailsViewModel> GetCasesDetialsList(string url)
         {
             List<ConfirmedCasesDetailsViewModel> listVM = new List<ConfirmedCasesDetailsViewModel>();
-            string data = WebRequestGetJsonString(url);
+            string htmlString = WebRequestGetHtmlString(url);
 
-            JObject jObject = JObject.Parse(data);
+            JObject jObject = JObject.Parse(htmlString);
             var records = jObject["result"]["records"];
 
             foreach (var item in records)
@@ -79,9 +110,9 @@ namespace COVID19Web.Service
             string url = ConfigurationManager.AppSettings["NSWConfirmedCasesCount"];
 
             NSWConfirmedCasesViewModel nswVM = new NSWConfirmedCasesViewModel();
-            string data = WebRequestGetJsonString(url);
+            string htmlString = WebRequestGetHtmlString(url);
 
-            JObject jObject = JObject.Parse(data);
+            JObject jObject = JObject.Parse(htmlString);
             var records = jObject["result"]["records"];
             foreach (var item in records)
             {
@@ -90,6 +121,9 @@ namespace COVID19Web.Service
             return nswVM.Count;
         }
 
+        #region help
+
+        // get a XML page content by url
         private List<string> WebRequestGetXMLString(string url)
         {
             List<string> Suburbs = new List<string>();
@@ -112,14 +146,14 @@ namespace COVID19Web.Service
 
         }
 
-
-        private string WebRequestGetJsonString(string url)
+        // get a webpage content by url
+        private string WebRequestGetHtmlString(string url)
         {
             // Creates an HttpWebRequest with the specified URL. 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             // Sends the HttpWebRequest and waits for the response.	
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string jsonString = "";
+            string htmlString = "";
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -136,18 +170,19 @@ namespace COVID19Web.Service
                     readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
                 }
 
-                jsonString = readStream.ReadToEnd();
+                htmlString = readStream.ReadToEnd();
                 // Debug.WriteLine(data);
 
                 response.Close();
                 readStream.Close();
-                // SaveSearchPageToFile(jsonString);
+                // SaveSearchPageToFile(webpageString);
             }
-            return jsonString;
+            return htmlString;
         }
 
 
-        // Save search webpage to a file
+
+        // save search webpage to a file
         private void SaveSearchPageToFile(string data)
         {
             DateTime dt = DateTime.Now;
@@ -163,5 +198,7 @@ namespace COVID19Web.Service
             }
         }
 
+
+        #endregion
     }
 }

@@ -26,7 +26,9 @@ namespace COVID19Web.Controllers
 
         public ActionResult Index()
         {
-            return View(new RetrieveDataViewModel());
+            RetrieveDataViewModel dataVM= new RetrieveDataViewModel();
+            dataVM.NSWCaseStatisticsVM=_searchDataService.GetNSWCaseStatistics();
+            return View(dataVM);
         }
 
         [HttpPost]

@@ -13,6 +13,8 @@ namespace COVID19Web.Model.ViewModel
         public DateTime notification_date { get; set; }
         [Display(Name = "Postcode")]
         public int postcode { get; set; }
+        [Display(Name = "Source Of Infection")]
+        public string likely_source_of_infection { get; set; }
         [Display(Name = "LHD Code")]
         public string lhd_2010_code { get; set; }
         [Display(Name = "Local Health District")]
