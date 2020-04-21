@@ -45,14 +45,14 @@ namespace COVID19Web.Service
             List<NSWCaseStatisticsViewModel> listVM = new List<NSWCaseStatisticsViewModel>();
 
 
-            HtmlDocument resultat = new HtmlDocument();
-            resultat.LoadHtml(htmlString);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
 
-            List<HtmlNode> caseTitleList = resultat.DocumentNode.Descendants().Where
+            List<HtmlNode> caseTitleList = htmlDocument.DocumentNode.Descendants().Where
 (x => (x.Name == "td" && x.Attributes["class"] != null &&
 x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
-            List<HtmlNode> caseCountList = resultat.DocumentNode.Descendants().Where
+            List<HtmlNode> caseCountList = htmlDocument.DocumentNode.Descendants().Where
 (x => (x.Name == "td" && x.Attributes["class"] != null &&
    x.Attributes["class"].Value.Contains(caseCountClassName))).ToList();
 
@@ -61,6 +61,37 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
                 listVM.Add(new NSWCaseStatisticsViewModel { Title = caseTitleList[i].InnerText, Count = caseCountList[i].InnerText });
             }
             return listVM;
+        }
+
+
+        public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatistics()
+        {
+            AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
+            string caseTitleClassName = "au-callout";
+            string caseGraghLinkClassName = "health-file__link";
+            string url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatistics"];
+            string htmlString = WebRequestGetHtmlString(url);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+
+            List<HtmlNode> caseTitleList = htmlDocument.DocumentNode.Descendants().Where
+                (x => (x.Name == "p" && x.Attributes["class"] != null &&
+                x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
+
+            vm.AustraliaCases = caseTitleList[0].InnerText;
+            vm.WorldCases = caseTitleList[1].InnerText;
+
+            url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatisticsGraph"];
+            htmlString = WebRequestGetHtmlString(url);
+            htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+
+            List<HtmlNode> caseGraghLink = htmlDocument.DocumentNode.Descendants().Where
+                (x => (x.Name == "a" && x.Attributes["class"] != null &&
+                x.Attributes["class"].Value.Equals(caseGraghLinkClassName))).ToList();
+            vm.AustraliaCasesGraphLink = caseGraghLink[0].GetAttributes("href").FirstOrDefault().Value;
+
+            return vm;
         }
 
         public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)

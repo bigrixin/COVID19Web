@@ -91,39 +91,105 @@
                             @:</p>
 
 
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
-                                    </th>
 
-                                </tr>
 
-                                @foreach (var item in Model.DailyCountResult)
-                                {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            if (Model.DetailsResult.Count() != 0)
+                            {
+                                <table class="table table-striped">
                                     <tr>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Date)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Count)
-                                        </td>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
+                                        </th>
 
                                     </tr>
-                                }
 
-                            </table>
+                                    @foreach (var item in Model.DailyCountResult)
+                                    {
+                                        <tr>
 
-                            @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Count)
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                </table>
+
+                                @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                                @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
+                            }
                         }
                         else
                         {
                             <p></p>
-                            <img src="https://www.health.gov.au/sites/default/files/images/publications/2020/04/covid-19-cases-in-australia-by-gender-and-age_16.png" class="img-responsive" alt="source: health.nsw.gov.au">
+                            <img src="https://www.health.nsw.gov.au/Infectious/diseases/PublishingImages/covid-19-age-group-gender.png" class="img-responsive" alt="source: health.nsw.gov.au">
 
                             <p></p><p></p>
                             <img src="https://www.health.nsw.gov.au/Infectious/diseases/PublishingImages/covid-19-source.png" class="img-responsive" alt="source: health.nsw.gov.au">
@@ -142,7 +208,21 @@
                         else
                         {
                             <p><b># Case in Australia #</b></p>
-                            <img src="https://www.health.gov.au/sites/default/files/images/publications/2020/04/new-and-cumulative-covid-19-cases-in-australia-by-notification-date_14.png" class="img-responsive" alt="source: health.nsw.gov.au">
+
+                            <img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">
+
+                            if (Model.AustraliaAndWorldCaseStatisticsVM != null)
+                            {
+                                <br /><br />
+                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
+                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.WorldCases</p>
+                            }
+
+
+                            @:<p align="right" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-current-situation-and-case-numbers#current-status"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="30"></a></p>
+
+                            @:<span style="font-size:small"><br />Note: Because the data update time of each website is not synchronized, the display may be different.</span>
+
                         }
                     }
 

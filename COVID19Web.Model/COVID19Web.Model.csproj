@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
+    <Compile Include="ViewModels\AustraliaAndWorldCaseStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ConfirmedCasesDailyCountViewModel.cs" />
     <Compile Include="ViewModels\ConfirmedCasesDetailsViewModel.cs" />
     <Compile Include="ViewModels\NSWCaseStatisticsViewModel.cs" />

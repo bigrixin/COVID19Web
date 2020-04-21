@@ -12,7 +12,7 @@ namespace COVID19Web.Model.ViewModel
         public string NSWCount { get; set; }
 
         public List<NSWCaseStatisticsViewModel> NSWCaseStatisticsVM { get; set; }
-
+        public AustraliaAndWorldCaseStatisticsViewModel AustraliaAndWorldCaseStatisticsVM { get; set; }
         public List<ConfirmedCasesDetailsViewModel> DetailsResult { get; set; }
         public List<ConfirmedCasesDailyCountViewModel> DailyCountResult { get; set; }
         public List<string> Suburbs { get; set; }

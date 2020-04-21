@@ -28,6 +28,7 @@ namespace COVID19Web.Controllers
         {
             RetrieveDataViewModel dataVM= new RetrieveDataViewModel();
             dataVM.NSWCaseStatisticsVM=_searchDataService.GetNSWCaseStatistics();
+            dataVM.AustraliaAndWorldCaseStatisticsVM = _searchDataService.GetAuAndWorldCaseStatistics();
             return View(dataVM);
         }
 
