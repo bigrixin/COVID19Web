@@ -11,7 +11,7 @@ namespace COVID19Web.Service
         string CombineRetrieveSuburbURL(string postcode);
         string GetNSWConfirmedCasesCount();
         List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics();
-        AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatistics();
+        AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO();
         List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url);
         List<ConfirmedCasesDetailsViewModel> GetCasesDetialsList(string url);
         List<string> GetSuburbByPostcode(string url);

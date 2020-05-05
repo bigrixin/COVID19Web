@@ -91,132 +91,6 @@
                             @:</p>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             if (Model.DetailsResult.Count() != 0)
                             {
                                 <table class="table table-striped">
@@ -274,18 +148,18 @@
                         {
                             <p><b># Case in Australia #</b></p>
 
-                            <img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">
+                            @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
 
                             if (Model.AustraliaAndWorldCaseStatisticsVM != null)
                             {
-                                <br /><br />
+                                <br /> 
                                 @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
                                 @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.WorldCases</p>
                             }
 
 
-                            @:<p align="right" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-current-situation-and-case-numbers#current-status"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="30"></a></p>
-
+                            @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-current-situation-and-case-numbers#current-status" target="_blank" ><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="60"></a></p>
+                            <br />
 
                             @:<span style="font-size:small"><br />Note: Because the data update time of each website is not synchronized, the display may be different.</span>
 

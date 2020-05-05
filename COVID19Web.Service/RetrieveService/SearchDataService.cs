@@ -63,38 +63,30 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             return listVM;
         }
 
-
-        public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatistics()
+        // due to the health.gov.au hase updated, this function not long to use.
+        public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
         {
             AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
-            string caseTitleClassName = "au-callout";
-            string caseGraghLinkClassName = "health-file__link";
-            string url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatistics"];
+            string caseTitleClassName = "sc-AxjAm sc-fzqMAW fiGUVg";
+            string url = ConfigurationManager.AppSettings["AustraliaCaseStatisticFromWHO"];
             string htmlString = WebRequestGetHtmlString(url);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlString);
 
             List<HtmlNode> caseTitleList = htmlDocument.DocumentNode.Descendants().Where
-                (x => (x.Name == "p" && x.Attributes["class"] != null &&
+                (x => (x.Name == "div" && x.Attributes["class"] != null &&
                 x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
-            vm.AustraliaCases = caseTitleList[0].InnerText;
-            vm.WorldCases = caseTitleList[1].InnerText;
-
-            url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatisticsGraph"];
-            htmlString = WebRequestGetHtmlString(url);
-            htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(htmlString);
-
-            List<HtmlNode> caseGraghLink = htmlDocument.DocumentNode.Descendants().Where
-                (x => (x.Name == "a" && x.Attributes["class"] != null &&
-                x.Attributes["class"].Value.Equals(caseGraghLinkClassName))).ToList();
-            vm.AustraliaCasesGraphLink = caseGraghLink[0].GetAttributes("href").FirstOrDefault().Value;
+            if (caseTitleList.Count() == 2)
+            {
+                vm.AustraliaCases = caseTitleList[0].InnerText;
+                vm.WorldCases = caseTitleList[1].InnerText;
+            }
 
             return vm;
         }
 
-        public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
+            public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
         {
             List<ConfirmedCasesDailyCountViewModel> listVM = new List<ConfirmedCasesDailyCountViewModel>();
 
@@ -213,7 +205,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
 
 
-        // save search webpage to a file
+        // save search webpage to a file, did not use in this project
         private void SaveSearchPageToFile(string data)
         {
             DateTime dt = DateTime.Now;
@@ -229,6 +221,40 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             }
         }
 
+
+        // due to the health.gov.au hase updated, this function not long to use.
+        private AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatistics()
+        {
+            AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
+            string caseTitleClassName = "au-callout";
+            string caseGraghLinkClassName = "health-file__link";
+            string url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatistics"];
+            string htmlString = WebRequestGetHtmlString(url);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+
+            List<HtmlNode> caseTitleList = htmlDocument.DocumentNode.Descendants().Where
+                (x => (x.Name == "p" && x.Attributes["class"] != null &&
+                x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
+
+            if (caseTitleList.Count() == 2)
+            {
+                vm.AustraliaCases = caseTitleList[0].InnerText;
+                vm.WorldCases = caseTitleList[1].InnerText;
+            }
+
+            url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatisticsGraph"];
+            htmlString = WebRequestGetHtmlString(url);
+            htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+
+            List<HtmlNode> caseGraghLink = htmlDocument.DocumentNode.Descendants().Where
+                (x => (x.Name == "a" && x.Attributes["class"] != null &&
+                x.Attributes["class"].Value.Equals(caseGraghLinkClassName))).ToList();
+            vm.AustraliaCasesGraphLink = caseGraghLink[0].GetAttributes("href").FirstOrDefault().Value;
+
+            return vm;
+        }
 
         #endregion
     }
