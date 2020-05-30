@@ -36,7 +36,28 @@ namespace COVID19Web.Service
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
 
-        public List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics()
+
+        public string GetNSWCaseStatistics()
+        {
+            string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
+            string htmlString = WebRequestGetHtmlString(url);
+            string caseCountId = "transmission";
+
+            List<NSWConfirmedCasesViewModel> listVM = new List<NSWConfirmedCasesViewModel>();
+
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+
+            HtmlNode localCaseHtml = htmlDocument.DocumentNode.Descendants().Where
+(x => (x.Name == "div" && x.Attributes["id"] != null &&
+x.Attributes["id"].Value.Contains(caseCountId))).ToList().First();//.Descendants().Where(x=>x.Name=="ul").FirstOrDefault();
+
+            return localCaseHtml.OuterHtml.Replace("h3", "h5");
+        }
+
+        //This function no long to use due to update by https://www.health.nsw.gov.au/
+        /*
+        public List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics_old()
         {
             string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
             string htmlString = WebRequestGetHtmlString(url);
@@ -62,8 +83,8 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             }
             return listVM;
         }
-
-        // due to the health.gov.au hase updated, this function not long to use.
+        */
+        // due to the health.gov.au has updated, this function not long to use.
         public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
         {
             AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
@@ -86,7 +107,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             return vm;
         }
 
-            public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
+        public List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url)
         {
             List<ConfirmedCasesDailyCountViewModel> listVM = new List<ConfirmedCasesDailyCountViewModel>();
 

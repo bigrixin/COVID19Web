@@ -37,34 +37,13 @@
                             <p>
                                 <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
                             </p>
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>
-                                        Case
-                                    </th>
-                                    <th align="center">
-                                        Count
-                                    </th>
-
-                                </tr>
-
-                                @foreach (var item in Model.NSWCaseStatisticsVM)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td style="color:blue;" align="right">
-                                            @Html.DisplayFor(modelItem => item.Count)
-                                        </td>
-
-                                    </tr>
-                                }
-
-                            </table>
-
-                            <span style="font-size:10px;"> 	&nbsp;	&nbsp;Note: <a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest-updates.aspx">1,2</a></span>
-                            <hr />
+                            
+                                    @Html.Raw(Model.NSWCaseStatisticsVM)
+                            
+                                <p align="center">
+                                    <span style="font-size:10px;">     &nbsp;  &nbsp;More details: <a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest-updates.aspx">NSW Health</a></span>
+                                </p>
+                                    <hr />
                         }
 
                         if (Model.Suburbs != null)

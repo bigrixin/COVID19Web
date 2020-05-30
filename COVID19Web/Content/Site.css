@@ -22,3 +22,25 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* For NSW statistic */
+
+div#transmission {
+    padding: 10px 0 10px 100px;
+}
+
+.label {
+    color: darkcyan;
+}
+
+.card {
+    font-size: medium;
+}
+
+.number {
+    color: brown;
+}
+
+span.material-icons {
+    display: none;
+}

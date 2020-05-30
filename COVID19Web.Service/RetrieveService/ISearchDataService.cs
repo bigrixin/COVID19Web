@@ -1,5 +1,6 @@
 ﻿using COVID19Web.Model.ViewModel;
 using COVID19Web.Model.ViewModels;
+using HtmlAgilityPack;
 using System.Collections.Generic;
 
 namespace COVID19Web.Service
@@ -10,7 +11,7 @@ namespace COVID19Web.Service
         string CombineConfirmedCasesDetailsURL(string postcode);
         string CombineRetrieveSuburbURL(string postcode);
         string GetNSWConfirmedCasesCount();
-        List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics();
+        string GetNSWCaseStatistics();
         AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO();
         List<ConfirmedCasesDailyCountViewModel> GetCasesDailyCountList(string url);
         List<ConfirmedCasesDetailsViewModel> GetCasesDetialsList(string url);
