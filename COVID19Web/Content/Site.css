@@ -26,8 +26,11 @@ textarea {
 /* For NSW statistic */
 
 div#transmission {
-    padding: 10px 0 10px 100px;
+    padding: 10px;
+    text-align: right;
+    display: flex;
 }
+
 
 .label {
     color: darkcyan;
