@@ -26,11 +26,26 @@ textarea {
 /* For NSW statistic */
 
 div#transmission {
+    margin: auto;
+    width: max-content;
     padding: 10px;
-    text-align: right;
-    display: flex;
 }
 
+div#local {
+    padding: 10px;
+    color: steelblue;
+    font-size: x-large;
+    background-color: #d9f7e540;
+}
+
+.card2 {
+    margin: auto;
+    width: max-content;
+}
+
+li {
+    list-style-type: none;
+}
 
 .label {
     color: darkcyan;

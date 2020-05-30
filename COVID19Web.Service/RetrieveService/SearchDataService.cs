@@ -41,18 +41,24 @@ namespace COVID19Web.Service
         {
             string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
             string htmlString = WebRequestGetHtmlString(url);
-            string caseCountId = "transmission";
+            string caseWeeklyId = "transmission";
+            string caseDailyId = "local";
 
             List<NSWConfirmedCasesViewModel> listVM = new List<NSWConfirmedCasesViewModel>();
 
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlString);
 
-            HtmlNode localCaseHtml = htmlDocument.DocumentNode.Descendants().Where
-(x => (x.Name == "div" && x.Attributes["id"] != null &&
-x.Attributes["id"].Value.Contains(caseCountId))).ToList().First();//.Descendants().Where(x=>x.Name=="ul").FirstOrDefault();
+            HtmlNode weeklyCaseHtml = htmlDocument.DocumentNode.Descendants()
+                .Where(x => (x.Name == "div" && x.Attributes["id"] != null &&
+              x.Attributes["id"].Value.Contains(caseWeeklyId))).ToList().First();
 
-            return localCaseHtml.OuterHtml.Replace("h3", "h5");
+            HtmlNode dailyCaseHtml = htmlDocument.DocumentNode.Descendants()
+                .Where(x => (x.Name == "div" && x.Attributes["id"] != null &&
+              x.Attributes["id"].Value.Contains(caseDailyId))).ToList().First();
+
+            string dailyCaseString = dailyCaseHtml.OuterHtml.Replace("card", "card2");
+            return (dailyCaseString + weeklyCaseHtml.OuterHtml).Replace("h3", "h5");
         }
 
         //This function no long to use due to update by https://www.health.nsw.gov.au/
