@@ -32,15 +32,18 @@ div#transmission {
 }
 
 div#local {
-    padding: 10px;
+    padding: 10px 0 10px 0;
     color: steelblue;
-    font-size: x-large;
     background-color: #d9f7e540;
+    margin: 0px 0px 0px -50px;
 }
 
 .card2 {
     margin: auto;
     width: max-content;
+    font-size: medium;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 li {
@@ -52,7 +55,7 @@ li {
 }
 
 .card {
-    font-size: medium;
+    font-size: 14px;
 }
 
 .number {
