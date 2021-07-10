@@ -27,13 +27,12 @@
                     if (Model.DetailsResult != null)
                     {
 
-                        @:<p>
-                            <b style="color:red;font-size:medium">
-                                @Model.DetailsResult.Count()
-                            </b> @: people were confirmed positive.
+                        @:<p>There are <b style="color:red;font-size:medium">@Model.DetailsResult.Count()</b>
+                            
+                            @: people who were confirmed positive in total.
                             @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
                         @:</p>
-                        <div class="col-md-12" style="overflow:auto;height: 500px;">
+                        <div class="col-md-12" style="overflow:auto;height: 380px;">
                             <table class="table table-striped">
                                 <tr>
                                     @*<th>
@@ -94,23 +93,23 @@
                                     </tr>
                                 }
 
-                            </table> 
+                            </table>
                         </div>
-                            <hr />
-                            }
+                        <hr />
+                    }
+            
+                    if (Model.NSWCount != null)
+                    {<br />
+                        @:<p>
+                            @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
+                                @Model.NSWCount @:</b>
+                        @:</p>
+                        <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
+                    }
 
-                            if (Model.NSWCount != null)
-                            {
-                                @:<p>
-                                @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
-                                    @Model.NSWCount @:</b>
-                                @:</p>
-                            <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
-                            }
+                }
 
-                            }
-
-                        </div>
+            </div>
                     </div>
     </div>
 </div>

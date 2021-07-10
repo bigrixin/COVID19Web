@@ -62,20 +62,13 @@
                         if (Model.DetailsResult != null)
                         {
 
-                            @:<p>
-                                <b style="color:red;font-size:medium">
-                                    @Model.DetailsResult.Count()
-                                </b> @: people were confirmed positive.
-
-                                @:
+                            @:<p>There are <b style="color:red;font-size:medium">@Model.DetailsResult.Count()</b> 
+                            @: people who were confirmed positive in total.
                             @:</p>
-
-
-
 
                             if (Model.DetailsResult.Count() != 0)
                             {
-                                <div class="col-md-12" style="overflow:auto;height: 500px;">
+                                <div class="col-md-12" style="overflow:auto;height: 300px;">
                                     <table class="table table-striped">
                                         <tr>
                                             <th>
@@ -133,29 +126,42 @@
                         else
                         {
 
-                            <br />
-                            <b># Case in NSW #</b>
+                            <b># Case in NSW # -press icon </b> 
 
                             @:<p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="80"></a></p>
 
-
                             <hr />
-                            <p><b># Case in Australia #</b></p>
+                            <b># Case in Australia #</b>
 
                             @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
 
                             if (Model.AustraliaAndWorldCaseStatisticsVM != null)
                             {
-                                <br />
-                                @:<p style="color:blue; font-size:large">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
-                                @:<p style="color:blue; font-size:large">@Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases</p>
+                                <br /><br />
+                                @:<p style="color:blue; font-size:large">
+                                    @Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases
+                                    @:&nbsp;| &nbsp; @Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases</p>
+
+
                             }
 
 
                             @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-case-numbers-and-statistics#covid19-summary-statistics" target="_blank"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="60"></a></p>
-                            <br />
+ <br />
 
-                            @:<span style="font-size:small"><br />Note: Because the data update time of each website is not synchronized, the display may be different.</span>
+                            @:<span style="font-size:small"><br />Note:<br /> - Press above icon for details. <br /> - Because the data update time of each website is not synchronized, the display may be different.</span>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
