@@ -28,7 +28,7 @@
 
             <hr />
             <div class="form-group">
-                <div class="col-md-12" style="overflow:auto;height: 500px;">
+                <div class="col-md-12">
 
                     @{
                         @*
@@ -58,53 +58,56 @@
                             @:</p>
                         }
 
-                  
-            if (Model.DetailsResult != null)
-            {
 
-                @:<p>
-                    <b style="color:red;font-size:medium">
-                        @Model.DetailsResult.Count()
-                    </b> @: people were confirmed positive.
-
-                    @:
-                @:</p>
-
-
-                if (Model.DetailsResult.Count() != 0)
-                {
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
-                            </th>
-
-                        </tr>
-
-                        @foreach (var item in Model.DailyCountResult)
+                        if (Model.DetailsResult != null)
                         {
-                            <tr>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Count)
-                                </td>
+                            @:<p>
+                                <b style="color:red;font-size:medium">
+                                    @Model.DetailsResult.Count()
+                                </b> @: people were confirmed positive.
 
-                            </tr>
+                                @:
+                            @:</p>
+
+
+
+
+                            if (Model.DetailsResult.Count() != 0)
+                            {
+                                <div class="col-md-12" style="overflow:auto;height: 500px;">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
+                                            </th>
+
+                                        </tr>
+
+                                        @foreach (var item in Model.DailyCountResult)
+                                        {
+                                            <tr>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Date)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Count)
+                                                </td>
+
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
+                                @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                                @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
+                            }
                         }
-
-                    </table>
-
-                    @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
-                    @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
-                }
-            }
-          @*  else
+                        @*  else
             {
 
               <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
@@ -116,7 +119,7 @@
 
             } *@
 
-                       
+
 
                         if (Model.NSWCount != null)
                         {
@@ -130,11 +133,12 @@
                         else
                         {
 
-                        <br />
-                           <b># Case in NSW #</b>
+                            <br />
+                            <b># Case in NSW #</b>
 
                             @:<p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="80"></a></p>
-          
+
+
                             <hr />
                             <p><b># Case in Australia #</b></p>
 
@@ -143,8 +147,8 @@
                             if (Model.AustraliaAndWorldCaseStatisticsVM != null)
                             {
                                 <br />
-                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
-                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases</p>
+                                @:<p style="color:blue; font-size:large">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
+                                @:<p style="color:blue; font-size:large">@Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases</p>
                             }
 
 
@@ -152,6 +156,8 @@
                             <br />
 
                             @:<span style="font-size:small"><br />Note: Because the data update time of each website is not synchronized, the display may be different.</span>
+
+
 
 
                         }

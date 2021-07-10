@@ -140,7 +140,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
             JObject jObject = JObject.Parse(htmlString);
 
-            var records = jObject["result"]["records"];   // .reverse //does not work ;
+            var records = jObject["result"]["records"];   // .reverse //does not work f;
 
             foreach (var item in records)
             {
