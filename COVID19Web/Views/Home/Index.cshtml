@@ -31,20 +31,20 @@
                 <div class="col-md-12">
 
                     @{
+                        @*
+            if (Model.NSWCaseStatisticsVM != null)
+            {
+                <p>
+                    <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
+                </p>
 
-                        if (Model.NSWCaseStatisticsVM != null)
-                        {
-                            <p>
-                                <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
-                            </p>
-                            
-                                    @Html.Raw(Model.NSWCaseStatisticsVM)
-                            
-                                <p align="right">
-                                    <span style="font-size:10px;">     &nbsp;  &nbsp;More details: <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/latest-updates.aspx">NSW Health</a></span>
-                                </p>
-                                    <hr />
-                        }
+                  @Html.Raw(Model.NSWCaseStatisticsVM)
+
+                <p align="right">
+                    <span style="font-size:10px;">     &nbsp;  &nbsp;More details: <a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics">NSW Health</a></span>
+                </p>
+                <hr />
+            } *@
 
                         if (Model.Suburbs != null)
                         {
@@ -58,61 +58,66 @@
                             @:</p>
                         }
 
-                        if (Model.DetailsResult != null)
+                        @*
+            if (Model.DetailsResult != null)
+            {
+
+                @:<p>
+                    <b style="color:red;font-size:medium">
+                        @Model.DetailsResult.Count()
+                    </b> @: people were confirmed positive.
+
+                    @:
+                @:</p>
+
+
+                if (Model.DetailsResult.Count() != 0)
+                {
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model.DailyCountResult)
                         {
+                            <tr>
 
-                            @:<p>
-                                <b style="color:red;font-size:medium">
-                                    @Model.DetailsResult.Count()
-                                </b> @: people were confirmed positive.
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Count)
+                                </td>
 
-                                @:
-                            @:</p>
-
-
-                            if (Model.DetailsResult.Count() != 0)
-                            {
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
-                                        </th>
-
-                                    </tr>
-
-                                    @foreach (var item in Model.DailyCountResult)
-                                    {
-                                        <tr>
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Date)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Count)
-                                            </td>
-
-                                        </tr>
-                                    }
-
-                                </table>
-
-                                @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
-                                @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
-                            }
+                            </tr>
                         }
-                        else
-                        {
-                            
-                          <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
-                          <br /> <br />
-                          <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-int">International flights travelling to, through or from a NSW airport</a><p></p>
-                          <br /> 
-                            @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
-                            <hr />
-                        }
+
+                    </table>
+
+                    @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                    @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
+                }
+            }
+            else
+            {
+
+              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
+              <br /> <br />
+              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-int">International flights travelling to, through or from a NSW airport</a><p></p>
+              <br />
+                @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
+                <hr />
+
+            }
+
+                        *@
+
                         if (Model.NSWCount != null)
                         {
                             @:<p>
@@ -124,6 +129,23 @@
                         }
                         else
                         {
+
+
+                            <p><b># Case in NSW #</b></p>
+
+                            @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
+
+                            if (Model.AustraliaAndWorldCaseStatisticsVM != null)
+                            {
+                                <br />
+                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
+                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.WorldCases</p>
+                            }
+
+
+                            @:<p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="80"></a></p>
+                            <br />
+                            <hr />
                             <p><b># Case in Australia #</b></p>
 
                             @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
@@ -136,7 +158,7 @@
                             }
 
 
-                            @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-current-situation-and-case-numbers#current-status" target="_blank" ><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="60"></a></p>
+                            @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-case-numbers-and-statistics#covid19-summary-statistics" target="_blank"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="60"></a></p>
                             <br />
 
                             @:<span style="font-size:small"><br />Note: Because the data update time of each website is not synchronized, the display may be different.</span>

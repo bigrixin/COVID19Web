@@ -12,7 +12,8 @@ namespace COVID19Web.Model.ViewModel
         public string Postcode { get; set; }
         public string NSWCount { get; set; }
 
-        public string NSWCaseStatisticsVM { get; set; }
+     //   public string NSWCaseStatisticsVM { get; set; }
+      //  public List<NSWCaseStatisticsViewModel> NSWCaseStatisticsVM { get; set; }
         public AustraliaAndWorldCaseStatisticsViewModel AustraliaAndWorldCaseStatisticsVM { get; set; }
         public List<ConfirmedCasesDetailsViewModel> DetailsResult { get; set; }
         public List<ConfirmedCasesDailyCountViewModel> DailyCountResult { get; set; }

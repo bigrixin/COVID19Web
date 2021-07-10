@@ -35,9 +35,10 @@ namespace COVID19Web.Service
         {
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
-
-
-        public string GetNSWCaseStatistics()
+ 
+        //This function no long to use due to update by https://www.health.nsw.gov.au/
+        /*
+        public string GetNSWCaseStatistics_old2()
         {
             string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
             string htmlString = WebRequestGetHtmlString(url);
@@ -61,8 +62,7 @@ namespace COVID19Web.Service
             return (dailyCaseString + weeklyCaseHtml.OuterHtml).Replace("h3", "h5");
         }
 
-        //This function no long to use due to update by https://www.health.nsw.gov.au/
-        /*
+
         public List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics_old()
         {
             string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
@@ -90,6 +90,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             return listVM;
         }
         */
+
         // due to the health.gov.au has updated, this function not long to use.
         public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
         {
