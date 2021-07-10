@@ -28,7 +28,7 @@
 
             <hr />
             <div class="form-group">
-                <div class="col-md-12">
+                <div class="col-md-12" style="overflow:auto;height: 500px;">
 
                     @{
                         @*
@@ -58,7 +58,7 @@
                             @:</p>
                         }
 
-                        @*
+                  
             if (Model.DetailsResult != null)
             {
 
@@ -104,7 +104,7 @@
                     @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
                 }
             }
-            else
+          @*  else
             {
 
               <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
@@ -114,9 +114,9 @@
                 @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
                 <hr />
 
-            }
+            } *@
 
-                        *@
+                       
 
                         if (Model.NSWCount != null)
                         {
@@ -130,21 +130,11 @@
                         else
                         {
 
-
-                            <p><b># Case in NSW #</b></p>
-
-                            @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
-
-                            if (Model.AustraliaAndWorldCaseStatisticsVM != null)
-                            {
-                                <br />
-                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
-                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.WorldCases</p>
-                            }
-
+                        <br />
+                           <b># Case in NSW #</b>
 
                             @:<p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="80"></a></p>
-                            <br />
+          
                             <hr />
                             <p><b># Case in Australia #</b></p>
 
@@ -154,7 +144,7 @@
                             {
                                 <br />
                                 @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases</p>
-                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.WorldCases</p>
+                                @:<p style="color:blue">@Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases</p>
                             }
 
 

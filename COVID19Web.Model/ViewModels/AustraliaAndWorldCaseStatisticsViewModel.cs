@@ -9,6 +9,6 @@ namespace COVID19Web.Model.ViewModels
     {
         public string AustraliaCasesGraphLink { get; set; }
         public string AustraliaCases { get; set; }
-        public string WorldCases { get; set; }
+        public string DeathsCases { get; set; }
     }
 }

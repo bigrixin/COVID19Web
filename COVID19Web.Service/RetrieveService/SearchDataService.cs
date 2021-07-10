@@ -35,7 +35,7 @@ namespace COVID19Web.Service
         {
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
- 
+
         //This function no long to use due to update by https://www.health.nsw.gov.au/
         /*
         public string GetNSWCaseStatistics_old2()
@@ -95,7 +95,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
         public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
         {
             AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
-            string caseTitleClassName = "sc-AxjAm sc-fzqMAW fiGUVg";
+            string caseTitleClassName = "sc-AxjAm sc-fzpkqZ fMxzvv";   // "sc-AxjAm sc-fzqMAW fiGUVg";
             string url = ConfigurationManager.AppSettings["AustraliaCaseStatisticFromWHO"];
             string htmlString = WebRequestGetHtmlString(url);
             HtmlDocument htmlDocument = new HtmlDocument();
@@ -107,8 +107,9 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
             if (caseTitleList.Count() == 2)
             {
-                vm.AustraliaCases = caseTitleList[0].InnerText;
-                vm.WorldCases = caseTitleList[1].InnerText;
+                // insert space between letters and numbers
+                vm.AustraliaCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[0].InnerText, @"\d+", " $& ").Trim();
+                vm.DeathsCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[1].InnerText, @"\d+", " $& ").Trim();
             }
 
             return vm;
@@ -138,7 +139,8 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             string htmlString = WebRequestGetHtmlString(url);
 
             JObject jObject = JObject.Parse(htmlString);
-            var records = jObject["result"]["records"];
+
+            var records = jObject["result"]["records"];   // .reverse //does not work ;
 
             foreach (var item in records)
             {
@@ -146,7 +148,8 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
                 cVM = JsonConvert.DeserializeObject<ConfirmedCasesDetailsViewModel>(item.ToString());
                 listVM.Add(cVM);
             }
-            return listVM;
+            //.OrderByDescending(a=>a.notification_date.Date).ToList()  // does not work
+            return listVM;  
         }
 
         public List<string> GetSuburbByPostcode(string url)
@@ -268,7 +271,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             if (caseTitleList.Count() == 2)
             {
                 vm.AustraliaCases = caseTitleList[0].InnerText;
-                vm.WorldCases = caseTitleList[1].InnerText;
+                vm.DeathsCases = caseTitleList[1].InnerText;
             }
 
             url = ConfigurationManager.AppSettings["AustraliaAndWorldCaseStatisticsGraph"];
