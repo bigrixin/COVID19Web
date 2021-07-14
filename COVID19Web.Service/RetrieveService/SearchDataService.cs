@@ -114,6 +114,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             {
                 // insert space between letters and numbers
                 vm.AustraliaCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[0].InnerText, @"\d+", " $& ").Trim();
+                vm.AustraliaCases = vm.AustraliaCases.Replace(" ,", ",");
                 vm.DeathsCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[1].InnerText, @"\d+", " $& ").Trim();
             }
 
@@ -127,7 +128,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
             string htmlString = WebRequestGetHtmlString(url);
 
             JObject jObject = JObject.Parse(htmlString);
-            var records = jObject["result"]["records"];
+            var records = jObject["result"]["records"].Reverse();
 
             foreach (var item in records)
             {
@@ -145,7 +146,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
             JObject jObject = JObject.Parse(htmlString);
 
-            var records = jObject["result"]["records"];   // .reverse //does not work f;
+            var records = jObject["result"]["records"].Reverse();
 
             foreach (var item in records)
             {
