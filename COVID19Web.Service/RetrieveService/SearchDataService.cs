@@ -36,60 +36,65 @@ namespace COVID19Web.Service
             return ConfigurationManager.AppSettings["PostcodeAPIEndpoint"] + postcode + "/api.xml";// ".json";
         }
 
-        //This function no long to use due to update by https://www.health.nsw.gov.au/
-        /*
-        public string GetNSWCaseStatistics_old2()
+        //The function return a HTML content string 
+        public string GetNSWCaseStatistics()
         {
-            string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
+            string url = ConfigurationManager.AppSettings["NSWHealthCaseStatistics"];
             string htmlString = WebRequestGetHtmlString(url);
-            string caseWeeklyId = "transmission";
-            string caseDailyId = "local";
+            //   string caseWeeklyId = "transmission";
+            //   string caseDailyId = "local";
+            string caseTitleClassName = "statistics";
 
             List<NSWConfirmedCasesViewModel> listVM = new List<NSWConfirmedCasesViewModel>();
 
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlString);
 
-            HtmlNode weeklyCaseHtml = htmlDocument.DocumentNode.Descendants()
-                .Where(x => (x.Name == "div" && x.Attributes["id"] != null &&
-              x.Attributes["id"].Value.Contains(caseWeeklyId))).ToList().First();
 
+            //the first is cases, the second is vaccination count
             HtmlNode dailyCaseHtml = htmlDocument.DocumentNode.Descendants()
-                .Where(x => (x.Name == "div" && x.Attributes["id"] != null &&
-              x.Attributes["id"].Value.Contains(caseDailyId))).ToList().First();
+                .Where(x => (x.Name == "div" && x.Attributes["class"] != null &&
+              x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList().First();
 
-            string dailyCaseString = dailyCaseHtml.OuterHtml.Replace("card", "card2");
-            return (dailyCaseString + weeklyCaseHtml.OuterHtml).Replace("h3", "h5");
+            //HtmlNode dailyCaseHtml = htmlDocument.DocumentNode.Descendants()
+            //    .Where(x => (x.Name == "div" && x.Attributes["id"] != null &&
+            //  x.Attributes["id"].Value.Contains(caseDailyId))).ToList().First();
+
+            string dailyCaseString = dailyCaseHtml.OuterHtml.Replace("/Infectious","https://www.health.nsw.gov.au/Infectious");
+            dailyCaseString = dailyCaseString.Replace("h2", "h5");
+            return dailyCaseString;
         }
 
+        //This function no long to use due to update by https://www.health.nsw.gov.au/
 
-        public List<NSWCaseStatisticsViewModel> GetNSWCaseStatistics_old()
+        // the function return a list with title and count, does not use
+        public List<NSWCaseStatisticsViewModel> GetNSWCaseListStatistics()
         {
-            string url = ConfigurationManager.AppSettings["NSWCaseStatistics"];
+            string url = ConfigurationManager.AppSettings["NSWHealthCaseStatistics"];
             string htmlString = WebRequestGetHtmlString(url);
-            string caseTitleClassName = "moh-rteTableEvenCol-6";
-            string caseCountClassName = "moh-rteTableOddCol-6";
+            string caseTitleClassName = "statistics";
+             string vaccinationCountClassName = "statistics vax";
             List<NSWCaseStatisticsViewModel> listVM = new List<NSWCaseStatisticsViewModel>();
-
 
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlString);
 
             List<HtmlNode> caseTitleList = htmlDocument.DocumentNode.Descendants().Where
-(x => (x.Name == "td" && x.Attributes["class"] != null &&
+(x => (x.Name == "div" && x.Attributes["class"] != null &&
 x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
-            List<HtmlNode> caseCountList = htmlDocument.DocumentNode.Descendants().Where
-(x => (x.Name == "td" && x.Attributes["class"] != null &&
-   x.Attributes["class"].Value.Contains(caseCountClassName))).ToList();
+                         List<HtmlNode> caseCountList = htmlDocument.DocumentNode.Descendants().Where
+             (x => (x.Name == "div" && x.Attributes["class"] != null &&
+                x.Attributes["class"].Value.Contains(vaccinationCountClassName))).ToList();
 
             for (int i = 0; i < caseTitleList.Count - 1; i++)
             {
                 listVM.Add(new NSWCaseStatisticsViewModel { Title = caseTitleList[i].InnerText, Count = caseCountList[i].InnerText });
             }
+
             return listVM;
         }
-        */
+
 
         // due to the health.gov.au has updated, this function not long to use.
         public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
@@ -149,7 +154,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
                 listVM.Add(cVM);
             }
             //.OrderByDescending(a=>a.notification_date.Date).ToList()  // does not work
-            return listVM;  
+            return listVM;
         }
 
         public List<string> GetSuburbByPostcode(string url)

@@ -27,8 +27,9 @@ namespace COVID19Web.Controllers
         public ActionResult Index()
         {
             RetrieveDataViewModel dataVM= new RetrieveDataViewModel();
-          // due to website update, it not long to use
-          // dataVM.NSWCaseStatisticsVM=_searchDataService.GetNSWCaseStatistics();
+            // due to website update, it not long to use
+            //  dataVM.NSWCaseStatisticsListVM=_searchDataService.GetNSWCaseListStatistics();
+            dataVM.NSWCaseStatisticsVM = _searchDataService.GetNSWCaseStatistics();
             dataVM.AustraliaAndWorldCaseStatisticsVM = _searchDataService.GetAuAndWorldCaseStatisticsFromWHO();
             return View(dataVM);
         }
