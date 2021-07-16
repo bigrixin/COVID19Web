@@ -43,7 +43,7 @@
                             <p align="left">
                                 <span style="font-size:10px;"> More details: <a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank">NSW Health</a></span>
                             </p>
-                            
+
                         }
                         <p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="50"></a></p>
                         <hr />
@@ -64,6 +64,13 @@
                         {
 
                             @:<p>There are <b style="color:red;font-size:medium">@Model.DetailsResult.Count()</b> people who were confirmed positive in total. </p>
+
+
+
+
+
+
+
 
                             if (Model.DetailsResult.Count() != 0)
                             {
@@ -135,16 +142,16 @@
                                     @:&nbsp;| &nbsp; @Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases
                                 @:</p>
                             }
-                <br />
+                            <br />
                             @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-case-numbers-and-statistics#covid19-summary-statistics" target="_blank"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="50"></a></p>
                             <br />
 
-                            @:<span style="font-size:small"><br />Note:<br /> - Press above icon for details. <br /> - The search data result may be different, due to the data update time of each website is not synchronized.</span>
-
-
-
-
-                        }
+                            @:<span style="font-size:small">
+                                @:<br />Notes:<br /> - Press above icon for details.
+                                @:<br /> - The search data result may be different, due to the data update time of each website is not synchronized.
+                                @:<br /> - The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to 24 hours to reset. 
+                                @:<br /> - This application is an unofficial website based on open data. please see <a href="about" >the details</a>. </span>
+                            }
                     }
 
                 </div>
