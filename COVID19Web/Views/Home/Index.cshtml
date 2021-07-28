@@ -63,13 +63,6 @@
                         if (Model.DetailsResult != null)
                         {
 
-                            @:<p>There are <b style="color:red;font-size:medium">@Model.DetailsResult.Count()</b> people who were confirmed positive in total. </p>
-
-
-
-
-
-
 
 
                             if (Model.DetailsResult.Count() != 0)
@@ -85,7 +78,7 @@
                                             </th>
 
                                         </tr>
-
+                                        @{int countbypostcode = 0;}
                                         @foreach (var item in Model.DailyCountResult)
                                         {
                                             <tr>
@@ -95,13 +88,17 @@
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Count)
+                                                    @{countbypostcode = countbypostcode + item.Count;}
                                                 </td>
 
                                             </tr>
                                         }
 
                                     </table>
+
+
                                 </div>
+                                <p>&nbsp; &nbsp; &nbsp;  There are <b style="color:red;font-size:medium">@countbypostcode</b> people who were confirmed positive in total. </p>
                                 @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
                                 @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
                             }
@@ -149,8 +146,8 @@
                             @:<span style="font-size:small">
                                 @:<br />Notes:<br /> - Press above icon for details.
                                 @:<br /> - The search data result may be different, due to the data update time of each website is not synchronized.
-                                @:<br /> - The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to 24 hours to reset. 
-                                @:<br /> - This application is an unofficial website based on open data. please see <a href="about" >the details</a>. </span>
+                                @:<br /> - The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to <span style="color:red">24 hours</span> to reset.
+                                @:<br /> - This application is an unofficial website based on open data. please see <a href="about">the details</a>. </span>
                             }
                     }
 
