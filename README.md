@@ -1,6 +1,8 @@
 # COVID19Web
 
-This application is an unofficial website that is used to check confirmed cases of COVID-19 by postcode in New South Wales, Australia. My friend said it is easy to use and fast. Hope you like it. ^_^
+This application is an unofficial website that is used to check confirmed cases of COVID-19 by postcode in New South Wales, Australia. My friend said it is easy to use and fast. Hope you like it. ^_^   
+
+https://covid19nsw.azurewebsites.net/
 
 The application used technologies are below:
 
