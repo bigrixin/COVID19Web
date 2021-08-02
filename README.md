@@ -13,3 +13,4 @@ The Postcode to the suburb name function via WebAPI from BM
 :) another better solution is using Google API.
 
 - The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to 24 hours to reset.
+- The search data result may be different, due to the data update time of each website is not synchronized.
