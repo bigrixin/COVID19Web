@@ -11,3 +11,5 @@ NSW case data are extracted via Webpage from NSW HEALTH
 The Postcode to the suburb name function via WebAPI from BM
 (Due to the Visit Rate limiting applies, sometimes the suburbs name can not be retrieved.)
 :) another better solution is using Google API.
+
+- The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to 24 hours to reset.
