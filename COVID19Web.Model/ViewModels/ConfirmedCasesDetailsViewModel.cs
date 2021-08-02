@@ -21,7 +21,7 @@ namespace COVID19Web.Model.ViewModel
         public string lhd_2010_name { get; set; }
         [Display(Name = "LGA Code")]
         public int lga_code19 { get; set; }
-        [Display(Name = "Loacal Government Area")]
+        [Display(Name = "Local Government Area")]
         public string lga_name19 { get; set; }
         [Display(Name = "Rank")]
         public decimal rank { get; set; }
