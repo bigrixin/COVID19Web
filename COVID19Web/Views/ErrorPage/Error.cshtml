@@ -1,0 +1,18 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = (!String.IsNullOrEmpty(ViewBag.StatusCode)) ? ViewBag.StatusCode : "-";
+}
+
+<h1 class="error">@(!String.IsNullOrEmpty(ViewBag.StatusCode) ? ViewBag.StatusCode : "-"):</h1>
+
+<br />
+ <p align="center" style="padding-right:1em">
+        <h1 style="color:red">
+            Due to a large number of visits. <br /><br />
+            Please try this
+            <a href="https://covid19nsw.somee.com" target="_blank">https://covid19nsw.somee.com</a>
+        </h1>
+</p>
+
+
+
