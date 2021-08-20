@@ -10,150 +10,155 @@
         {
             @Html.AntiForgeryToken()
             <br />
-            <h4>Search NSW COVID-19 Case by Postcode</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Postcode, new { @class = "col-md-4 control-label" })
-                <div class="col-md-8">
-                    @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @placeholder = "2000" })
-                    @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-4 col-md-8">
-                    <input type="submit" value="Submit" class="btn btn-default" />
-                </div>
-            </div>
+        <div class="alert alert-danger">
 
-            <hr />
-            <div class="form-group">
-                <div class="col-md-12">
-
-                    @{
-
-                        if (Model.NSWCaseStatisticsVM != null)
-                        {
-                            <p>
-                                <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
-                            </p>
-
-                            @Html.Raw(Model.NSWCaseStatisticsVM)
-
-                            <p align="left">
-                                <span style="font-size:10px;"> More details: <a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank">NSW Health</a></span>
-                            </p>
-
-                        }
-                        <p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="50"></a></p>
-                        <hr />
-                        if (Model.Suburbs != null)
-                        {
-                            @:<p>
-                                @:<b>Suburbs:</b>
-                                foreach (var item in Model.Suburbs)
-                                {
-                                    @Html.DisplayFor(modelItem => item) @: ,
-                                }
-                                @:
-                            @:</p>
-                        }
-
-
-                        if (Model.DetailsResult != null)
-                        {
-
-
-
-                            if (Model.DetailsResult.Count() != 0)
-                            {
-                                <div class="col-md-12" style="overflow:auto;height: 300px;">
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
-                                            </th>
-
-                                        </tr>
-                                        @{int countbypostcode = 0;}
-                                        @foreach (var item in Model.DailyCountResult)
-                                        {
-                                            <tr>
-
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Count)
-                                                    @{countbypostcode = countbypostcode + item.Count;}
-                                                </td>
-
-                                            </tr>
-                                        }
-
-                                    </table>
-
-
-                                </div>
-                                <p>&nbsp; &nbsp; &nbsp;  There are <b style="color:red;font-size:medium">@countbypostcode</b> people who were confirmed positive in total. </p>
-                                @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
-                                @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
-                            }
-                        }
-                        @*  else
-            {
-
-              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
-              <br /> <br />
-              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-int">International flights travelling to, through or from a NSW airport</a><p></p>
-              <br />
-                @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
+           <b>Please remember this <a href="https://covid19nsw.somee.com" target="_blank">https://covid19nsw.somee.com</a></b>
+        </div>
+                 
+                <h4>Search NSW COVID-19 Case by Postcode</h4>
                 <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Postcode, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @placeholder = "2000" })
+                        @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
 
-            } *@
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-12">
 
-                        if (Model.NSWCount != null)
-                        {
-                            @:<p>
-                                @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
-                                    @Model.NSWCount @:
-                                @:</b>
-                            @:</p>
-                            <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
-                        }
-                        else
-                        {
+                        @{
 
-                            <b># Case in Australia #</b>
-
-                            @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
-
-                            if (Model.AustraliaAndWorldCaseStatisticsVM != null)
+                            if (Model.NSWCaseStatisticsVM != null)
                             {
-                                <br /><br />
-                                @:<p style="color:blue; font-size:small">
-                                    @Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases
-                                    @:&nbsp;| &nbsp; @Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases
+                                <p>
+                                    <b># NSW case statistics #</b>   <span style="font-size:10px;">- www.health.nsw.gov.au</span>
+                                </p>
+
+                                @Html.Raw(Model.NSWCaseStatisticsVM)
+
+                                <p align="left">
+                                    <span style="font-size:10px;"> More details: <a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank">NSW Health</a></span>
+                                </p>
+
+                            }
+                            <p align="center" style="padding-right:1em"><a href="https://www.nsw.gov.au/covid-19/find-the-facts-about-covid-19#nsw-covid-19-statistics" target="_blank"><img src="https://www.nsw.gov.au/sites/default/files/inline-images/brand_guidelines_nsw_government_logo.jpg" height="50"></a></p>
+                            <hr />
+                            if (Model.Suburbs != null)
+                            {
+                                @:<p>
+                                    @:<b>Suburbs:</b>
+                                    foreach (var item in Model.Suburbs)
+                                    {
+                                        @Html.DisplayFor(modelItem => item) @: ,
+                                    }
+                                    @:
                                 @:</p>
                             }
-                            <br />
-                            @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-case-numbers-and-statistics#covid19-summary-statistics" target="_blank"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="50"></a></p>
-                            <br />
 
-                            @:<span style="font-size:small">
-                                @:<br />Notes:<br /> - Press above icon for details.
-                                @:<br /> - The search data result may be different, due to the data update time of each website is not synchronized.
-                                @:<br /> - The system will automatically stop if the app service quota exceeds due to a large number of visits. It maybe would be taking up to <span style="color:red">24 hours</span> to reset.
-                                @:<br /> - This application is an unofficial website based on open data. please see <a href="About">the details</a>. </span>
+
+                            if (Model.DetailsResult != null)
+                            {
+
+
+
+                                if (Model.DetailsResult.Count() != 0)
+                                {
+                                    <div class="col-md-12" style="overflow:auto;height: 300px;">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.DailyCountResult.First().Date)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.DailyCountResult.First().Count)
+                                                </th>
+
+                                            </tr>
+                                            @{int countbypostcode = 0;}
+                                            @foreach (var item in Model.DailyCountResult)
+                                            {
+                                                <tr>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Count)
+                                                        @{countbypostcode = countbypostcode + item.Count;}
+                                                    </td>
+
+                                                </tr>
+                                            }
+
+                                        </table>
+
+
+                                    </div>
+                                    <p>&nbsp; &nbsp; &nbsp;  There are <b style="color:red;font-size:medium">@countbypostcode</b> people who were confirmed positive in total. </p>
+                                    @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
+                                    @Html.ActionLink("Go home", "Index", "Home", new { @class = "btn btn-link btn-sm" })
+                                }
                             }
-                    }
+                            @*  else
+                            {
 
+                              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-domestic"> Domestic flights travelling to, through or from a NSW airport</a>
+                              <br /> <br />
+                              <a href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/flights.aspx#nsw-int">International flights travelling to, through or from a NSW airport</a><p></p>
+                              <br />
+                                @:<p align="right" style="padding-right:1em"><a href="https://www.health.nsw.gov.au/Infectious/diseases/Pages/covid-19-latest.aspx#statistics"><img src="https://data.nsw.gov.au/data/images/NSW-Health.png" height="30"></a></p>
+                                <hr />
+
+                            } *@
+
+                            if (Model.NSWCount != null)
+                            {
+                                @:<p>
+                                    @:<b>NSW Total confirmed cases: </b>  <b style="color:red;font-size:medium">
+                                        @Model.NSWCount @:
+                                    @:</b>
+                                @:</p>
+                                <p>Search time: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")</p>
+                            }
+                            else
+                            {
+
+                                <b># Case in Australia #</b>
+
+                                @*<img src=@Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCasesGraphLink class="img-responsive" alt="source: health.nsw.gov.au">*@
+
+                                if (Model.AustraliaAndWorldCaseStatisticsVM != null)
+                                {
+                                    <br /><br />
+                                    @:<p style="color:blue; font-size:small">
+                                        @Model.AustraliaAndWorldCaseStatisticsVM.AustraliaCases
+                                        @:&nbsp;| &nbsp; @Model.AustraliaAndWorldCaseStatisticsVM.DeathsCases
+                                    @:</p>
+                                }
+                                <br />
+                                @:<p align="center" style="padding-right:1em"><a href="https://www.health.gov.au/news/health-alerts/novel-coronavirus-2019-ncov-health-alert/coronavirus-covid-19-case-numbers-and-statistics#covid19-summary-statistics" target="_blank"><img src="https://www.health.gov.au/sites/default/themes/custom/health/images/DoHCrest.png" height="50"></a></p>
+                                <br />
+
+                                @:<span style="font-size:small">
+                                    @:<br />Notes:<br /> - Press above icon for details.
+                                    @:<br /> - The search data result may be different, due to the data update time of each website is not synchronized.
+
+                                    @:<br /> - This application is an unofficial website based on open data. please see <a href="About">the details</a>. </span>
+                                }
+                        }
+
+                    </div>
                 </div>
-            </div>
-        }
+                }
 
-    </div>
-</div>
+            </div>
+        </div>
