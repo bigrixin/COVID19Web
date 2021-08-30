@@ -100,7 +100,7 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
         public AustraliaAndWorldCaseStatisticsViewModel GetAuAndWorldCaseStatisticsFromWHO()
         {
             AustraliaAndWorldCaseStatisticsViewModel vm = new AustraliaAndWorldCaseStatisticsViewModel();
-            string caseTitleClassName = "sc-AxjAm sc-fzpkqZ fMxzvv";   // "sc-AxjAm sc-fzqMAW fiGUVg";
+            string caseTitleClassName = "sc-AxjAm sc-fzpmMD kLuJkU";   // "sc-AxjAm sc-fzqMAW fiGUVg";
             string url = ConfigurationManager.AppSettings["AustraliaCaseStatisticFromWHO"];
             string htmlString = WebRequestGetHtmlString(url);
             HtmlDocument htmlDocument = new HtmlDocument();
@@ -110,12 +110,15 @@ x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
                 (x => (x.Name == "div" && x.Attributes["class"] != null &&
                 x.Attributes["class"].Value.Contains(caseTitleClassName))).ToList();
 
-            if (caseTitleList.Count() == 2)
+            if (caseTitleList.Count() == 1)
             {
-                // insert space between letters and numbers
-                vm.AustraliaCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[0].InnerText, @"\d+", " $& ").Trim();
+
+                vm.AustraliaCases = caseTitleList.First().InnerText;
+                                // insert space between letters and numbers
+              /*  vm.AustraliaCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[0].InnerText, @"\d+", " $& ").Trim();
                 vm.AustraliaCases = vm.AustraliaCases.Replace(" ,", ",");
                 vm.DeathsCases = System.Text.RegularExpressions.Regex.Replace(caseTitleList[1].InnerText, @"\d+", " $& ").Trim();
+              */
             }
 
             return vm;
