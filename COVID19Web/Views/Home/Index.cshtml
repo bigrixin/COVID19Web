@@ -84,7 +84,6 @@
                                             @foreach (var item in Model.DailyCountResult)
                                             {
                                                 <tr>
-
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.Date)
                                                     </td>
@@ -92,13 +91,9 @@
                                                         @Html.DisplayFor(modelItem => item.Count)
                                                         @{countbypostcode = countbypostcode + item.Count;}
                                                     </td>
-
                                                 </tr>
                                             }
-
                                         </table>
-
-
                                     </div>
                                     <p>&nbsp; &nbsp; &nbsp;  There are <b style="color:red;font-size:medium">@countbypostcode</b> people who were confirmed positive in total. </p>
                                     @Html.ActionLink(" More details", "Details", "Home", new { @postcode = Model.Postcode }, htmlAttributes: new { title = "Confirmed cases details.", @class = "btn btn-link btn-sm" })
@@ -146,7 +141,7 @@
                                     @:<br />Notes:<br /> - Press above icon for details.
                                     @:<br /> - The search data result may be different, due to the data update time of each website is not synchronized.
 
-                                    @:<br /> - This application is an unofficial website based on open data. please see <a href="homea/about">the details</a>. </span>
+                                    @:<br /> - This application is an unofficial website based on open data. please see <a href="home/about">the details</a>. </span>
                                 }
                         }
 
